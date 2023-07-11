@@ -296,8 +296,8 @@ export default {
           icon: 'mdi-cart-percent',
           title: 'ຈັດຊື້',
           nestList2: [
-            { title: 'ກວດສອບຂໍ້ມູນຢາ-ອຸປະກອນ', to: '/orders' },
-            { title: 'ປະຫວັດຈັດຊື້ຢາ-ອຸປະກອນ', to: '/orders/historyOrder' },
+            { title: 'ກວດສອບຂໍ້ມູນສິນຄ້າ', to: '/orders' },
+            { title: 'ປະຫວັດຈັດຊື້ຂໍ້ມູນສິນຄ້າ', to: '/orders/historyOrder' },
           ],
         },
       ],
@@ -319,7 +319,7 @@ export default {
             { title: 'ຈັດການຂໍ້ມູນປະເພດສິນຄ້າ', to: '/manage/productType' },
             {
               title: 'ຈັດການຂໍ້ມູນສິນຄ້າ',
-              to: '/',
+              to: '/manage/product',
             },
             {
               title: 'ຈັດການຂໍ້ມູນພະນັກງານຂາຍ',
@@ -333,11 +333,7 @@ export default {
             {
               title: 'ຈັດການຂໍ້ມູນອັດຕາແລກປ່ຽນ',
               to: '/manage/manage_checklists',
-            },
-            {
-              title: 'ຈັດການຜູ້ໃຊ້ລະບົບ',
-              to: '/manage/Manage_appointment',
-            },
+            }
           ],
         },
       ],

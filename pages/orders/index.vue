@@ -1,6 +1,8 @@
 <template >
   <div>
-    <div class="mt-4 mb-3 ml-2 font-weight-bold container">ກວດສອບຂໍ້ມູນຢາ</div>
+    <div class="mt-4 mb-3 ml-2 font-weight-bold container">
+      ກວດສອບຂໍ້ມູນສິນຄ້າ
+    </div>
     <!-- <div>ກວດສອບນຳເຂົ້າ</div> -->
     <!-- {{medicines}} -->
     <v-card class="pa-10">
@@ -22,11 +24,14 @@
           <v-select
             v-model="supId"
             :items="supData"
+            item-text="name"
+            item-value="id"
             outlined
             dense
-            item-text="supplier_name"
-            item-value="id"
-            label="ເລືອກຜູ້ສະໜອງ"
+            hide-details="auto"
+            label="ຜູ້ສະໜອງ"
+            return-object
+            color="success"
           ></v-select>
         </v-col>
       </v-row>
@@ -34,16 +39,19 @@
       <v-col>
         <v-data-table
           v-model="selectedItems"
+          :items="orderData"
           :headers="headers"
-          :items="medicines"
           show-select
-          item-key="medicines_id"
+          :search="searchTerm"
+          item-key="id"
         >
           <template #[`item.indx`]="{ index }">
             {{ index + 1 }}
           </template>
-          <template #[`item.price`]="{ item }">
-            <span style="color: red">{{ toCurrencyString(item.price) }}</span>
+          <template #[`item.sale_price`]="{ item }">
+            <span style="color: red">{{
+              toCurrencyString(item.sale_price)
+            }}</span>
           </template>
         </v-data-table>
       </v-col>
@@ -67,15 +75,15 @@
       transition="dialog-transition"
     >
       <v-card>
-        <v-card-title> ລາຍການສັ່ງຊື້ຢາ </v-card-title>
+        <v-card-title> ລາຍການສັ່ງຊື້ສິນຄ້າ </v-card-title>
         <v-card-text>
           <v-data-table :headers="headers" :items="selectedItems">
             <template #[`item.indx`]="{ index }">
               {{ index + 1 }}
             </template>
-            <template #[`item.amount`]="{ item }">
+            <template #[`item.quatity`]="{ item }">
               <v-text-field
-                v-model="item.amount"
+                v-model="item.quatity"
                 type="number"
                 hide-details="auto"
                 dense
@@ -106,7 +114,7 @@ export default {
       token: this.$cookies.get('token'),
       amount: [],
       selectedItems: [],
-      medicines: [],
+      orderData: [],
       supData: [],
       value: null,
       value1: null,
@@ -121,20 +129,20 @@ export default {
     headers() {
       return [
         { text: 'ລຳດັບ', value: 'indx' },
-        { text: 'ປະເພດ ', value: 'type_name' },
-        { text: 'ຊື່ຢາ', value: 'name' },
-        { text: 'ຈຳນວນ', value: 'amount' },
-        { text: 'ລາຄາ', value: 'price' },
-        { text: 'ຫົວໜ່ວຍ', value: 'unit' },
+        { text: 'ປະເພດສິນຄ້າ ', value: 'product_type_name' },
+        { text: 'ຊື່ສິນຄ້າ', value: 'name' },
+        { text: 'ຈຳນວນ', value: 'quatity' },
+        { text: 'ລາຄາຂາຍ', value: 'sale_price' },
+        { text: 'ຫົວໜ່ວຍ', value: 'unit_name' },
       ]
     },
   },
-  mounted() {
-    this.$axios.get('http://localhost:7000/getMedicines').then((res) => {
-      this.medicines = res.data
+  async mounted() {
+    await this.$axios.get('http://localhost:2023/Product').then((res) => {
+      this.orderData = res.data
     })
 
-    this.$axios.get('http://localhost:7000/get-suppliers').then((res) => {
+    await this.$axios.get('http://localhost:2023/supplier').then((res) => {
       this.supData = res.data.rows
     })
   },

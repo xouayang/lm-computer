@@ -47,10 +47,10 @@
             </template>
             <span>ລຶບ</span>
           </v-tooltip>
-          <v-tooltip top color="#9155FD">
+          <v-tooltip top color="success">
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="showEdit(item)">
-                <v-icon color="#9155FD"
+                <v-icon color="primary"
                   >mdi-pencil-outline</v-icon
                 >
               </v-btn>

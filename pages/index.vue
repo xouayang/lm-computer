@@ -51,7 +51,7 @@
                 >ລາຍການປີ່ນປົວໃໝ່
                 
                 <v-row align="center">
-                  <v-col><div class="mt-3 text-h4">{{showPatiented?.count}}</div></v-col>
+                  <v-col><div class="mt-3 text-h4"></div></v-col>
                   <v-col class="mt-2">
                     <v-btn text small fab color="#9155FD">
                     <v-badge :content="showPatiented?.count ? showPatiented?.count : '0'" color="error">
@@ -68,10 +68,10 @@
                 elevation="0"
                 >ລາຍການປີ່ນປົວທັງໝົດ
                 <v-row align="center">
-                  <v-col><div class="mt-3 text-h4">{{showPatients?.count}}</div></v-col>
+                  <v-col><div class="mt-3 text-h4"></div></v-col>
                   <v-col>
                     <v-btn style="background-color: #9155fd" rounded
-                      ><span style="color: white">{{showPatients?.count}}++</span></v-btn
+                      ><span style="color: white"></span></v-btn
                     >
                   </v-col>
                 </v-row>
@@ -85,9 +85,9 @@
               <v-card height="100" rounded="xl" class="pt-3 pl-3" elevation="0">
                 ພະນັກງານ (ຊາຍ)
                 <v-row align="center">
-                  <v-col><div class="mt-3 text-h4">{{dataMale?.count}}</div></v-col>
+                  <v-col><div class="mt-3 text-h4"></div></v-col>
                   <v-col>
-                    <v-btn color="success" rounded>{{dataMale?.count}}++</v-btn>
+                    <v-btn color="success" rounded></v-btn>
                   </v-col>
                 </v-row>
               </v-card>
@@ -98,10 +98,10 @@
                 elevation="0"
                 >ພະນັກງານ (ຍິງ)
                 <v-row align="center">
-                  <v-col><div class="mt-3 text-h4">{{dataFemal?.count}}</div></v-col>
+                  <v-col><div class="mt-3 text-h4"></div></v-col>
                   <v-col>
                     <v-btn style="background-color: #9155fd" rounded
-                      ><span style="color: white">{{dataFemal?.count}}++</span></v-btn
+                      ><span style="color: white"></span></v-btn
                     >
                   </v-col>
                 </v-row>
@@ -111,9 +111,9 @@
               <v-card height="100" rounded="xl" class="pt-3 pl-3" elevation="0">
                 ປະເພດ (ອຸປະກອນ ເເລະ ຢາ)
                 <v-row align="center">
-                  <v-col><div class="mt-3 text-h4">{{countShow?.count}}</div></v-col>
+                  <v-col><div class="mt-3 text-h4"></div></v-col>
                   <v-col>
-                    <v-btn color="success" rounded>{{countShow?.count}}++</v-btn>
+                    <v-btn color="success" rounded></v-btn>
                   </v-col>
                 </v-row>
               </v-card>
@@ -156,66 +156,42 @@ export default {
     return {
       interval: {},
       value: 0,
-      messages: [
-        {
-          avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-          name: 'John Leider',
-          title: 'Welcome to Vuetify!',
-          excerpt: 'Thank you for joining our community...',
-        },
-        {
-          color: 'red',
-          icon: 'mdi-account-multiple',
-          name: 'Social',
-          new: 1,
-          total: 3,
-          title: 'Twitter',
-        },
-        {
-          color: 'teal',
-          icon: 'mdi-tag',
-          name: 'Promos',
-          new: 2,
-          total: 4,
-          title: 'Shop your way',
-          exceprt: 'New deals available, Join Today',
-        },
-      ],
+
     };
     
   },
   beforeUnmount() {
     clearInterval(this.interval);
   },
-    computed: {
-    dataMale() {
-      return this.$store.state.user.maleData
-    },
-    dataFemal() {
-      return this.$store.state.user.femaleData 
-    },
-    countShow() {
-     return this.$store.state.user.dataCount  
-    },
-    showPatients() {
-      return this.$store.state.user.Patients  
-    },
-    showPatiented() {
-      return this.$store.state.user.Patiented  
-    }
-  },
- async mounted() {
+   // computed: {
+    // dataMale() {
+    //   return this.$store.state.user.maleData
+    // },
+    // dataFemal() {
+    //   return this.$store.state.user.femaleData 
+    // },
+    // countShow() {
+    //  return this.$store.state.user.dataCount  
+    // },
+    // showPatients() {
+    //   return this.$store.state.user.Patients  
+    // },
+    // showPatiented() {
+    //   return this.$store.state.user.Patiented  
+    // }
+ // },
+  mounted() {
     this.interval = setInterval(() => {
       if (this.value === 100) {
         return (this.value = 0);
       }
       this.value += 10;
     }, 1000);
-    await this.$store.dispatch('user/male')
-    await this.$store.dispatch('user/female')
-    await this.$store.dispatch('user/countType')
-    await this.$store.dispatch('user/getPatients')
-    await this.$store.dispatch('user/getPatiented')
+    // await this.$store.dispatch('user/male')
+    // await this.$store.dispatch('user/female')
+    // await this.$store.dispatch('user/countType')
+    // await this.$store.dispatch('user/getPatients')
+    // await this.$store.dispatch('user/getPatiented')
   },
 };
 </script>
