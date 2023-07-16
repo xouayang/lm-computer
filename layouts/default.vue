@@ -135,7 +135,7 @@
           :to="item.to"
           router
           exact
-          color="success"
+          color="priamary"
           class="pa-3"
         >
           <v-list-item-action>
@@ -151,7 +151,7 @@
           :to="item.to"
           router
           exact
-          color="success"
+          color="primary"
           class="pa-3"
         >
           <v-list-item-action>
@@ -226,10 +226,9 @@
           </v-card>
         </v-menu> -->
       </div>
-      <div v-ripple class="text-center px-3 cursor-pointer">
+      <div v-ripple class=" text-center px-3 cursor-pointer">
         <v-btn text rounded @click="showDialog">
-          <v-icon color="#9155FD"> mdi-power</v-icon>
-          ອອກຈາກລະບົບ
+          <v-icon class="cyan accent-3"> mdi-logout</v-icon>
         </v-btn>
       </div>
     </v-app-bar>
@@ -250,7 +249,7 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="#9155FD">
+          <v-toolbar dark color="cyan accent-3  ">
             <div class="text-center">ອອກຈາກລະບົບ!!!</div>
             <v-spacer></v-spacer>
             <v-btn icon dark @click="dialog = false">
@@ -265,7 +264,7 @@
           <v-card-actions class="d-flex justify-end">
             <v-btn color="error" @click="signOut">
               <v-icon color="white">mdi-power</v-icon>
-              <span style="color: white"> ອອກຈາກລະບົບ</span>
+              <span > ອອກຈາກລະບົບ</span>
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -348,7 +347,7 @@ export default {
         {
           icon: 'mdi-currency-usd',
           title: 'ຂາຍສິນຄ້າ',
-          to: '/treat/pay',
+          to: '/sale',
         },
       ],
       search: [

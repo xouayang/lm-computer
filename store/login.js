@@ -13,6 +13,7 @@ export const actions = {
         )
         // console.log(data1)
         this.$cookies.set('first_name', data1.FIRST_NAME)
+        this.$cookies.set('id', data1.id)
         this.$cookies.set('last_name', data1.LAST_NAME)
         this.$cookies.set('gender', data1.GENDER)
         this.$cookies.set('tel', data1.TEL)

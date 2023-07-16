@@ -1,10 +1,10 @@
 <template >
   <div>
-    <div class="mt-4 mb-3 ml-2 font-weight-bold container">
-      ກວດສອບຂໍ້ມູນສິນຄ້າ
-    </div>
+    <v-card class="cyan accent-3 mb-3 d-flex justify-center font-weight-bold container">
+      <h2>ກວດສອບຂໍ້ມູນສິນຄ້າ</h2>
+    </v-card>
     <!-- <div>ກວດສອບນຳເຂົ້າ</div> -->
-    <!-- {{medicines}} -->
+    <!-- {{medicines}} -->  
     <v-card class="pa-10">
       <v-row>
         <v-col cols="12" md="6">
@@ -60,9 +60,9 @@
     </v-card>
     <v-row class="mt-3 mb-8">
       <v-col cols="12" class="text-end">
-        <v-btn color="#9155FD" @click="getSelectedItems">
-          <span style="color: white">ບັນທຶກການສັ່ງຊື້</span>
-          <v-icon color="white">mdi-content-save-check-outline</v-icon>
+        <v-btn color="cyan accent-3" @click="getSelectedItems">
+          <span >ບັນທຶກການສັ່ງຊື້</span>
+          <v-icon >mdi-content-save-check-outline</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -96,6 +96,7 @@
           </v-data-table>
         </v-card-text>
         <v-card-actions>
+          
           <v-spacer></v-spacer>
           <v-btn color="red " outlined @click="dialog = false">ຍົກເລີກ</v-btn>
           <v-btn color="success white--text " @click="order">ບັນທຶກ</v-btn>
@@ -136,6 +137,15 @@ export default {
         { text: 'ຫົວໜ່ວຍ', value: 'unit_name' },
       ]
     },
+    TotalAmount() {
+      return this.selectedItems.reduce(
+        (num, item) => num + item.price * item.quatity,
+        0
+      )
+    },
+    TotalQuantity() {
+      return this.selectedItems.reduce((num, item) => num + parseInt(item.quatity), 0)
+    },
   },
   async mounted() {
     await this.$axios.get('http://localhost:2023/Product').then((res) => {
@@ -148,19 +158,29 @@ export default {
   },
   methods: {
     async order() {
-      const data = {
-        supplier_id: this.supId,
-        item: this.selectedItems,
-        // token: this.token
-      }
+      const orderItems = this.selectedItems.map(item => {
+    return {
+      // order_id: '', 
+      product_id: item.id,
+      order_qty: parseInt(item.quatity),
+      total_price: item.price,
+      order_details_date: new Date().toISOString()
+    };
+  });
+  const data = {
+    supllier_id: this.supId.id,
+    order_qty: this.TotalQuantity,
+    total_price: this.TotalAmount,
+    item: orderItems
+  };
       await this.$axios
-        .post('http://localhost:7000/create-prescription', data, {
+        .post('http://localhost:2023/order', data, {
           headers: {
-            Authorization: `CLINIC ${this.token}`,
+            Authorization: `LMCOMPUTER ${this.token}`,
           },
         })
         .then((res) => {
-          this.$router.push('/orders/historyOrder')
+          // this.$router.push('/orders/historyOrder')
           this.$toast.success('ສັ່ງຊື້ສຳເລັດ', {
             duration: 2000,
             position: 'top-right',
@@ -178,15 +198,16 @@ export default {
         })
       this.dialog = false
     },
-    onAmountEdit(item) {
-      console.log(`Edited amount value: ${item.amount}`)
-    },
+    // onAmountEdit(item) {
+    //   console.log(`Edited amount value: ${item.amount}`)
+    // },
     showData() {
+  
       this.dialog = false
       this.$refs.anyName.reset()
     },
     getSelectedItems() {
-      this.dialog = true
+      this.dialog = this.toCurrencyString
     },
     toCurrencyString(number) {
       return laoCurrency(number).format('LAK S')

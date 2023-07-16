@@ -1,4 +1,4 @@
-<template >
+<template>
   <div>
     <div class="mt-2 mb-3 ml-2 font-weight-bold container">ກວດສອບນຳເຂົ້າ</div>
     <!-- <div>ກວດສອບນຳເຂົ້າ</div> -->
@@ -22,8 +22,8 @@
         <v-col cols="12" md="6" sm="12">
           <v-card-title>
             <v-text-field
+            v-model="expired_date"
               type="text"
-              v-model="expired_date"
               label="ວັນໝົດອາຍຸ"
               outlined
               hide-details
@@ -34,15 +34,16 @@
           </v-card-title>
         </v-col>
       </v-row>
-      <v-data-table :headers="headers" :items="importData.rows" color="#9155FD">
-        <template #[`item.amount`]="{ item }">
+      {{ importData }}
+      <v-data-table :headers="headers" :items="importData" color="#9155FD">
+        <template #[`item.qty_small`]="{ item }">
           <v-text-field
-            v-model="item.amount"
+            v-model="item.qty_small"
             type="number"
             hide-details="auto"
             dense
             style="width: 50px"
-            :rules="[greaterThanZeroRule]"
+            :rules="greaterThanZeroRule"
           ></v-text-field>
         </template>
         <template #[`item.expired_date`]="{ item }">
@@ -54,10 +55,12 @@
           ></v-text-field>
         </template>
         <template #[`item.createdAt`]="{ item }">
-          {{ $moment(item.createdAt).format('YYYY-MM-DD') }}
+          {{ formatDateBill(item.createdAt) }}
         </template>
-        <template #[`item.price`]="{ item }">
-          <span style="color: red"> {{ toCurrencyString(item.price) }}</span>
+        <template #[`item.order_details_price`]="{ item }">
+          <span style="color: red">
+            {{ formatPrice(item.order_details_price) }}</span
+          >
         </template>
       </v-data-table>
       <v-divider></v-divider>
@@ -180,17 +183,17 @@ export default {
         (v) => !!v || 'Value is required',
         (v) => /^\d+$/.test(v) || 'Value must be a number',
         (v) => Number(v) > 0 || 'Value must be greater than zero',
-        (v) => this.noNegativeSign(v) || 'Value must not be negative',
+        // (v) => this.noNegativeSign(v) || 'Value must not be negative',
       ],
       headers: [
         { text: 'ລະຫັດນຳເຂົ້າ ', value: 'bill_number' },
         { text: 'ປະເພດ', value: 'type_name' },
-        { text: 'ຊື່ຢາ', value: 'name' },
-        { text: 'ຈຳນວນ', value: 'amount' },
-        { text: 'ລາຄາ', value: 'price' },
-        { text: 'ຫົວໜ່ວຍ', value: 'unit' },
+        { text: 'ຊື່ສິນຄ້າ', value: 'name' },
+        { text: 'ຈຳນວນ', value: 'qty_small' },
+        { text: 'ລາຄາ', value: 'order_details_price' },
+        { text: 'ຫົວໜ່ວຍ', value: 'unit_name' },
         { text: 'ວັນ ເດືອນ ປີ ສັ່ງຊື້', value: 'createdAt' },
-        { text: 'ວັນ ເດືອນ ປີ ໝົດອາຍຸ', value: 'expired_date' },
+        // { text: 'ວັນ ເດືອນ ປີ ໝົດອາຍຸ', value: 'expired_date' },
       ],
       item: {
         id: '',
@@ -200,6 +203,20 @@ export default {
         expired_date: '',
       },
     }
+  },
+  computed: {
+    TotalAmount() {
+      return this.importData.reduce(
+        (num, item) => num + item.order_details_price * item.qty_small,
+        0
+      )
+    },
+    TotalQuantity() {
+      return this.importData.reduce(
+        (num, item) => num + parseInt(item.qty_small),
+        0
+      )
+    },
   },
   methods: {
     noNegativeSign(value) {
@@ -214,32 +231,26 @@ export default {
     },
     saveImport() {
       const dataIn = []
-      this.importData?.rows?.map((el) => {
+      this.importData?.map((el) => {
         const res = {
-          amount: parseFloat(el.amount),
-          bill_number: el.bill_number,
-          createdAt: el.createdAt,
-          id: el.id,
-          medicines_id: el.medicines_id,
-          name: el.name,
-          prescription_id: el.prescription_id,
-          price: el.price,
-          type_name: el.type_name,
-          unit: el.unit,
-          updatedAt: el.unit,
+          import_qty: parseFloat(el.qty_small),
+          pro_id: el.product_id,
+          total_price: el.order_details_price,
         }
         return dataIn.push(res)
       })
 
       const data = {
-        expire_date: this.expired_date,
+        order_id: this.importData[0].id,
+        import_quaty: this.TotalQuantity,
+        import_total_kip: this.TotalAmount,
+        // expire_date: this.expired_date,
         item: dataIn,
       }
-      // console.log(data)
       this.$axios
-        .post('http://localhost:7000/createImport', data, {
+        .post('http://localhost:2023/imports', data,{
           headers: {
-            Authorization: `CLINIC ${this.token}`,
+            Authorization: `LMCOMPUTER ${this.token}`,
           },
         })
         .then((res) => {
@@ -260,15 +271,16 @@ export default {
             iconPack: 'mdi',
             icon: 'check',
           })
-          this.$router.push('/Import/historyImport')
+          this.$router.push('/import')
           // }
         })
     },
+    // billId
     searchData(e) {
       this.$axios
-        .get(`http://localhost:7000/getPriscriptions/${e.target.value}`, {
+        .get(`http://localhost:2023/order/${e.target.value}`, {
           headers: {
-            Authorization: `CLINIC ${this.token}`,
+            Authorization: `LMCOMPUTER  ${this.token}`,
           },
         })
         .then((res) => {

@@ -16,7 +16,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel:"stylesheet", href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100;200;300;400;500;600&display=swap' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100;200;300;400;500;600&display=swap',
+      },
     ],
   },
 
@@ -24,7 +27,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/global.js', { src: '~/plugins/dayjs.js' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -39,11 +42,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    'cookie-universal-nuxt',
-    '@nuxtjs/axios',
-    '@nuxtjs/toast'
-  ],
+  modules: ['cookie-universal-nuxt', '@nuxtjs/axios', '@nuxtjs/toast'],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
