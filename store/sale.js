@@ -1,6 +1,8 @@
 export const state = () => ({
   prescrition: [],
   statusData: [],
+  saleDetail:[],
+  sale:{}
 })
 
 export const mutations = {
@@ -10,6 +12,12 @@ export const mutations = {
   setOrderStatus(state, data) {
     state.statusData = data
   },
+  setBySaleId(state, data){
+    state.saleDetail = data
+  },
+  setSale(state, data){
+    state.sale = data
+  }
 }
 
 export const actions = {
@@ -22,7 +30,6 @@ export const actions = {
   },
   async saveSale({ commit }, data) {
     const token = this.$cookies.get('token')
-    console.log(token)
     try {
       await this.$axios
         .post('http://localhost:7000/create-saleDetails', data, {
@@ -52,7 +59,16 @@ export const actions = {
       .get(`http://localhost:7000/get-offer-status`)
       .then((res) => {
         commit('setOrderStatus', res.data)
-        console.log('data ?????????', res.data)
       })
   },
+  async getBysaleId({commit},id){
+    await this.$axios.get(`http://localhost:2023/sale_detail/sale-id/${id}`).then((res)=>{
+      commit('setBySaleId', res.data)
+    })
+  },
+  async selectSale({commit},id){
+    await this.$axios.get(`http://localhost:2023/sale/${id}`).then((res)=>{
+      commit('setSale', res.data)
+    })
+  }
 }

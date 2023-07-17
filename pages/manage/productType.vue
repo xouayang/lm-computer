@@ -1,8 +1,12 @@
 <template >
   <div>
-    <div class="mt-5 mb-3 pb-2 ml-2 font-weight-bold">
-      ຈັດການຂໍ້ມູນປະເພດສິນຄ້າ
-    </div>
+    <v-card class="cyan accent-4 white--text white--text mb-5 font-weight-bold d-flex justify-center">
+      <div class="py-2 ">
+        <h2>
+          ຈັດການຂໍ້ມູນປະເພດ
+        </h2>
+      </div>
+    </v-card>
     <v-card>
       <v-row class="d-flex align-center col-12">
         <v-col cols="12" md="10" sm="12">
@@ -21,11 +25,12 @@
         </v-col>
         <v-col cols="12" md="2" sm="3" class="d-flex justify-end">
           <v-btn
+          dark
             style="width: 100"
-            color="success"
+            class="cyan accent-4 white--text"
             @click="showAddDialog = !showAddDialog"
-            ><span style="color: white">ເພີ່ມຂໍ້ມູນປະເພດສິນຄ້າ</span>
-            <v-icon color="white">mdi-plus-outline</v-icon>
+            ><span >ເພີ່ມຂໍ້ມູນປະເພດສິນຄ້າ</span>
+            <v-icon >mdi-plus-outline</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -66,11 +71,11 @@
     </v-card>
     <v-dialog v-model="showDailog" width="540" activator="parent" persistent>
       <v-card>
-        <v-toolbar dark color="success">
+        <v-toolbar class="cyan accent-4 white--text white--text">
           <v-card-title>ທ່ານເເນ່ໃຈບໍ ?</v-card-title>
           <v-spacer></v-spacer>
           <v-btn icon @click="showDailog = !showDailog">
-            <v-icon>mdi-close</v-icon>
+            <v-icon color="red">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
         <v-divider></v-divider>
@@ -95,11 +100,11 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar class="cyan accent-4 white--text">
             <div>ແກ້ໄຂຂໍ້ມູນປະເພດສິນຄ້າ</div>
             <v-spacer></v-spacer>
-            <v-btn icon dark @click="dialog = false">
-              <v-icon>mdi-close</v-icon>
+            <v-btn icon @click="dialog = false">
+              <v-icon color="red">mdi-close</v-icon>
             </v-btn>
           </v-toolbar>
           <v-divider></v-divider>
@@ -116,9 +121,9 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
+              dark
               width="100"
-              class="white--text"
+              class="cyan accent-4 white--text"
               @click="editData(showEditData.id)"
               >ບັນທືກ</v-btn
             >
@@ -134,11 +139,11 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar class="cyan accent-4 white--text white--text">
             <div>ເພີ່ມຂໍ້ມູນປະເພດສິນຄ້າ</div>
             <v-spacer></v-spacer>
-            <v-btn icon dark @click="showAddDialog = !showAddDialog">
-              <v-icon>mdi-close</v-icon>
+            <v-btn icon  @click="showAddDialog = !showAddDialog">
+              <v-icon color="red">mdi-close</v-icon>
             </v-btn>
           </v-toolbar>
           <v-divider></v-divider>
@@ -155,9 +160,9 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
+              darj
               width="100"
-              class="white--text"
+              class="cyan accent-4 white--text"
               @click="addData"
               >ບັນທືກ</v-btn
             >

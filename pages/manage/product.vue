@@ -1,6 +1,12 @@
-<template >
+<template>
   <div>
-    <div class="mt-5 mb-3 pb-2 ml-2 font-weight-bold">ຈັດການຂໍ້ມູນສິນຄ້າ</div>
+    <v-card
+      class="cyan accent-4 white--text white--text mb-5 font-weight-bold d-flex justify-center"
+    >
+      <div class="py-2">
+        <h2>ຈັດການຂໍ້ມູນສິນຄ້າ</h2>
+      </div>
+    </v-card>
     <v-card>
       <v-row class="d-flex align-center col-12">
         <v-col cols="12" md="10" sm="12">
@@ -20,10 +26,10 @@
         <v-col cols="12" md="2" sm="3" class="d-flex justify-end">
           <v-btn
             style="width: 100"
-            color="success"
+            class="cyan accent-4 white--text"
             @click="showAddDialog = !showAddDialog"
-            ><span style="color: white">ເພີ່ມຂໍ້ມູນສິນຄ້າ</span>
-            <v-icon color="white">mdi-plus-outline</v-icon>
+            ><span>ເພີ່ມຂໍ້ມູນສິນຄ້າ</span>
+            <v-icon>mdi-plus-outline</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -67,11 +73,11 @@
     </v-card>
     <v-dialog v-model="showDailog" width="540" activator="parent" persistent>
       <v-card>
-        <v-toolbar dark color="success">
-          <v-card-title>ທ່ານເເນ່ໃຈບໍ ?</v-card-title>
+        <v-toolbar class="cyan accent-4 white--text">
+          <h3 color="black">ທ່ານເເນ່ໃຈບໍ ?</h3>
           <v-spacer></v-spacer>
           <v-btn icon @click="showDailog = !showDailog">
-            <v-icon>mdi-close</v-icon>
+            <v-icon color="error">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
         <v-divider></v-divider>
@@ -95,7 +101,12 @@
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" width="100" @click="deleteData(showData.id)">
+          <v-btn
+            color="error"
+            width="100"
+            :loading="loading"
+            @click="deleteData(showData.id)"
+          >
             <div class="text--white">ລຶບ</div>
           </v-btn>
         </v-card-actions>
@@ -109,11 +120,11 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar class="cyan accent-4 white--text">
             <div>ແກ້ໄຂຂໍ້ມູນປະເພດສິນຄ້າ</div>
             <v-spacer></v-spacer>
-            <v-btn icon dark @click="dialog = false">
-              <v-icon>mdi-close</v-icon>
+            <v-btn icon @click="dialog = false">
+              <v-icon color="error">mdi-close</v-icon>
             </v-btn>
           </v-toolbar>
           <v-divider></v-divider>
@@ -150,9 +161,9 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
               width="100"
-              class="white--text"
+              class="cyan accent-4 white--text"
+              :loading="loading"
               @click="editData(showEditData.id)"
               >ບັນທືກ</v-btn
             >
@@ -168,11 +179,11 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar class="cyan accent-4 white--text">
             <div>ເພີ່ມຂໍ້ມູນສິນຄ້າ</div>
             <v-spacer></v-spacer>
-            <v-btn icon dark @click="showAddDialog = !showAddDialog">
-              <v-icon>mdi-close</v-icon>
+            <v-btn icon @click="showAddDialog = !showAddDialog">
+              <v-icon color="error">mdi-close</v-icon>
             </v-btn>
           </v-toolbar>
           <v-divider></v-divider>
@@ -265,9 +276,9 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
               width="100"
-              class="white--text"
+              class="cyan accent-4 white--text"
+              :loading="loading"
               @click="addData"
               >ບັນທືກ</v-btn
             >
@@ -283,6 +294,7 @@ export default {
   name: 'ManageProductType',
   data() {
     return {
+      loading: false,
       product_type: {
         name: '',
       },
@@ -349,14 +361,15 @@ export default {
       return laoCurrency(number).format('LAK S')
     },
     showProductType(data) {
-      console.log(data)
       this.showData = data
       this.showDailog = true
     },
     async deleteData(id) {
+      this.loading = true
       await this.$store.dispatch('product/deleteData', id)
       await this.$store.dispatch('product/getProductData')
       this.showDailog = false
+      this.loading = false
     },
     showEdit(dataEdit) {
       this.showEditData = dataEdit
@@ -367,14 +380,16 @@ export default {
         this.product_type_update.sale_price = this.showEditData.sale_price
       }
     },
-   async editData(id) {
-      console.log(id)
+    async editData(id) {
+      this.loading = true
       const data = this.product_type_update
       await this.$store.dispatch('product/updateData', { data, id })
-       await this.$store.dispatch('product/getProductData')
+      await this.$store.dispatch('product/getProductData')
       this.dialog = false
+      this.loading = false
     },
     async addData() {
+      this.loading = true
       const data = {
         name: this.name,
         quatity: this.quatity,
@@ -394,6 +409,7 @@ export default {
       this.product_type_id = ''
       await this.$store.dispatch('product/getProductData')
       this.showAddDialog = false
+      this.loading = false
     },
   },
 }

@@ -1,6 +1,12 @@
 <template >
   <div>
-    <div class="mt-5 mb-3 pb-2 ml-2 font-weight-bold">ຈັດການຂໍ້ມູນຜູ້ສະໜອງ</div>
+    <v-card  class="cyan accent-4 white--text white--text mb-5 font-weight-bold d-flex justify-center">
+      <div class="py-2 ">
+        <h2 >
+          ຈັດການຂໍ້ມູນຜູ້ສະໜອງ
+        </h2>
+      </div>
+    </v-card>
     <v-card>
       <!-- search button------------------------------- -->
       <v-row class="d-flex align-center col-12">
@@ -21,7 +27,7 @@
         <v-col cols="12" md="2" sm="3" class="d-flex justify-end">
           <v-btn
             style="width: 100"
-            color="success"
+           class="cyan accent-4 white--text"
             @click="showAddDialog = !showAddDialog"
             ><span style="color: white">ເພີ່ມຂໍ້ມູນຜູ້ສະໜອງ</span>
             <v-icon color="white">mdi-plus-outline</v-icon>
@@ -60,7 +66,7 @@
     </v-card>
     <v-dialog v-model="showDailog" width="540" activator="parent" persistent>
       <v-card>
-        <v-toolbar dark color="success">
+        <v-toolbar dark class="cyan accent-4 white--text">
           <v-card-title>ທ່ານເເນ່ໃຈບໍ ?</v-card-title>
           <v-spacer></v-spacer>
           <v-btn icon @click="showDailog = !showDailog">
@@ -92,8 +98,8 @@
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" width="100" @click="deleteData(showData.id)">
-            <div class="text--white">ລຶບ</div>
+          <v-btn class="cyan accent-4 white--text" width="100" @click="deleteData(showData.id)">
+            <div class="white--text">ລຶບ</div>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -106,7 +112,7 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar dark class="cyan accent-4 white--text">
             <div>ແກ້ໄຂຂໍ້ມູນຜູ້ສະໜອງ</div>
             <v-spacer></v-spacer>
             <v-btn icon dark @click="dialog = false">
@@ -157,9 +163,9 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
+              
               width="100"
-              class="white--text"
+              class="cyan accent-4 white--text white--text"
               @click="editData(showEditData.id)"
               >ບັນທືກ</v-btn
             >
@@ -175,8 +181,8 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
-            <div>ເພີ່ມຂໍ້ມູນຄົນເຈັບ</div>
+          <v-toolbar dark  class="cyan accent-4 white--text">
+            <div>ເພີ່ມຂໍ້ມູນ</div>
             <v-spacer></v-spacer>
             <v-btn icon dark @click="showAddDialog = !showAddDialog">
               <v-icon>mdi-close</v-icon>
@@ -226,9 +232,8 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
               width="100"
-              class="white--text"
+              class="cyan accent-4 white--text white--text"
               @click="addData"
               >ບັນທືກ</v-btn
             >

@@ -1,6 +1,12 @@
-<template >
+<template>
   <div>
-    <div class="mt-5 mb-3 pb-2 ml-2 font-weight-bold">ຈັດການຂໍ້ມູນພະນັກງານ</div>
+    <v-card
+      class="cyan accent-4 white--text white--text mb-5 font-weight-bold d-flex justify-center"
+    >
+      <div class="py-2">
+        <h2>ຈັດການຂໍ້ມູນພະນັກງານ</h2>
+      </div>
+    </v-card>
     <v-card>
       <!-- search button------------------------------- -->
       <v-row class="d-flex align-center col-12">
@@ -19,7 +25,12 @@
           </v-card-title>
         </v-col>
         <v-col cols="12" md="2" sm="12">
-          <v-btn color="success" block @click="showAddDialog = !showAddDialog">
+          <v-btn
+            dark
+            color="cyan accent-4 white--text"
+            block
+            @click="showAddDialog = !showAddDialog"
+          >
             <span>ເພີ່ມຂໍ້ມູນພະນັກງານ</span>
             <v-icon>mdi-plus-outline</v-icon>
           </v-btn>
@@ -44,7 +55,7 @@
             </template>
             <span>ລຶບ</span>
           </v-tooltip>
-          <v-tooltip top color="success">
+          <v-tooltip top color="cyan accent-4 white--text">
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="infoUpdate(item)">
                 <v-icon color="#9155FD">mdi-pencil-outline</v-icon>
@@ -61,7 +72,7 @@
 
     <v-dialog v-model="deleteDialog" width="540" activator="parent" persistent>
       <v-card>
-        <v-toolbar dark color="success">
+        <v-toolbar dark color="cyan accent-4 white--text">
           <v-card-title>ທ່ານເເນ່ໃຈບໍ ?</v-card-title>
           <v-spacer></v-spacer>
           <v-btn icon @click="deleteDialog = !deleteDialog">
@@ -93,7 +104,11 @@
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" width="100" @click="removeData(deleteData.id)">
+          <v-btn
+            color="cyan accent-4 white--text"
+            width="100"
+            @click="removeData(deleteData.id)"
+          >
             <div class="text--white">ລຶບ</div>
           </v-btn>
         </v-card-actions>
@@ -107,7 +122,7 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar dark color="cyan accent-4 white--text">
             <div>ແກ້ໄຂຂໍ້ມູນພະນັກງານ</div>
             <v-spacer></v-spacer>
             <v-btn icon dark @click="editDialog = false">
@@ -169,7 +184,7 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
+              color="cyan accent-4 white--text"
               width="100"
               class="white--text"
               @click="updateData(editData.id)"
@@ -187,7 +202,7 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="success">
+          <v-toolbar dark color="cyan accent-4 white--text">
             <div>ເພີ່ມຂໍ້ມູນພະນັກງານ</div>
             <v-spacer></v-spacer>
             <v-btn icon dark @click="showAddDialog = !showAddDialog">
@@ -259,7 +274,7 @@
           <v-spacer></v-spacer>
           <div class="d-flex justify-end pa-4">
             <v-btn
-              color="success"
+              color="cyan accent-4 white--text"
               width="100"
               class="white--text"
               @click="addStaffData"
@@ -352,7 +367,7 @@ export default {
     },
     async updateData(id) {
       const data = this.updateInfo
-      await this.$store.dispatch('staff/updateData',{data, id })
+      await this.$store.dispatch('staff/updateData', { data, id })
       await this.$store.dispatch('staff/staffInfo')
       this.editDialog = false
     },

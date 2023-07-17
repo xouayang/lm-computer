@@ -228,7 +228,7 @@
       </div>
       <div v-ripple class=" text-center px-3 cursor-pointer">
         <v-btn text rounded @click="showDialog">
-          <v-icon class="cyan accent-3"> mdi-logout</v-icon>
+          <v-icon class="cyan accent-4 white--text"> mdi-logout</v-icon>
         </v-btn>
       </div>
     </v-app-bar>
@@ -249,7 +249,7 @@
         persistent
       >
         <v-card>
-          <v-toolbar dark color="cyan accent-3  ">
+          <v-toolbar dark color="cyan accent-4 white--text  ">
             <div class="text-center">ອອກຈາກລະບົບ!!!</div>
             <v-spacer></v-spacer>
             <v-btn icon dark @click="dialog = false">
@@ -306,7 +306,7 @@ export default {
           title: 'ນຳເຂົ້າ',
           nestList3: [
             { title: 'ກວດສອບນຳເຂົ້າ', to: '/import' },
-            { title: 'ປະຫວັດນຳເຂົ້າຊື້ຢາ', to: '/import/historyImport' },
+            { title: 'ປະຫວັດນຳເຂົ້າສິນຄ້າ', to: '/import/historyImport' },
           ],
         },
       ],

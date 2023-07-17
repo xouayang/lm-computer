@@ -1,6 +1,6 @@
 <template >
   <div>
-    <v-card class="cyan accent-3 mb-3 d-flex justify-center font-weight-bold container">
+    <v-card class="cyan accent-4 white--text mb-3 d-flex justify-center font-weight-bold container">
       <h2>ກວດສອບຂໍ້ມູນສິນຄ້າ</h2>
     </v-card>
     <!-- <div>ກວດສອບນຳເຂົ້າ</div> -->
@@ -60,7 +60,7 @@
     </v-card>
     <v-row class="mt-3 mb-8">
       <v-col cols="12" class="text-end">
-        <v-btn color="cyan accent-3" @click="getSelectedItems">
+        <v-btn color="cyan accent-4 white--text" @click="getSelectedItems">
           <span >ບັນທຶກການສັ່ງຊື້</span>
           <v-icon >mdi-content-save-check-outline</v-icon>
         </v-btn>

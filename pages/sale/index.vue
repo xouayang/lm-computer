@@ -102,7 +102,14 @@
                           </v-chip>
                         </v-img>
                         <v-card-text>
-                          <div class="font-weight-black">{{ item.name }}</div>
+                          <!-- <div>{{ product.name?.slice(0, 30) + '...' }}</div> -->
+                          <div class="font-weight-black">
+                            {{
+                              item.name.length <= 10
+                                ? item.name
+                                : item.name?.slice(0, 20) + '...'
+                            }}
+                          </div>
                           <div class="info--text">{{ item.sale_price }}kip</div>
                         </v-card-text>
                       </div>
@@ -141,7 +148,7 @@
                             <span> <strong> ເງີນບາດຖືກ: </strong></span>
                             <span
                               ><strong
-                                >{{ formatPrice(Bath) }} ກີບ</strong
+                                >{{ formatPrice(Bath) }} ບາດ</strong
                               ></span
                             >
                           </h4>
@@ -152,7 +159,7 @@
                             <span> <strong> ເງີນໂດລາຖືກ: </strong></span>
                             <span
                               ><strong
-                                >{{ formatPrice(Dollar) }} ກີບ</strong
+                                >{{ formatPrice(Dollar) }} ໂດລາ</strong
                               ></span
                             >
                           </h4>
@@ -192,75 +199,75 @@
                             <v-row style="width: 250px">
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(1)">1</v-btn>
+                                <v-btn block @click="AddNum(1)">1</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(2)">2</v-btn>
+                                <v-btn block @click="AddNum(2)">2</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(3)">3</v-btn>
+                                <v-btn block @click="AddNum(3)">3</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(4)">4</v-btn>
+                                <v-btn block @click="AddNum(4)">4</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(5)">5</v-btn>
+                                <v-btn block @click="AddNum(5)">5</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(6)">6</v-btn>
+                                <v-btn block @click="AddNum(6)">6</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(7)">7</v-btn>
+                                <v-btn block @click="AddNum(7)">7</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(8)">8</v-btn>
+                                <v-btn block @click="AddNum(8)">8</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum(9)">9</v-btn>
+                                <v-btn block @click="AddNum(9)">9</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum('00')">00</v-btn>
+                                <v-btn block @click="AddNum('00')">00</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum('0')">0</v-btn>
+                                <v-btn block @click="AddNum('0')">0</v-btn>
                               </v-col>
                               <v-col
                                 cols="4"
-                                class="blue white--text text-center my-n1 mx-n1"
+                                class="white--text text-center my-n1"
                               >
-                                <v-btn @click="AddNum('-')"
+                                <v-btn block @click="AddNum('-')"
                                   ><v-icon>mdi-arrow-left</v-icon></v-btn
                                 >
                               </v-col>
@@ -340,7 +347,7 @@
                   <v-divider vertical class="mx-1"></v-divider>
 
                   <v-btn
-                    class="cyan accent-3"
+                    class="cyan accent-4 white--text"
                     width="70%"
                     :disabled="check_pay"
                     @click="btPay()"
@@ -358,13 +365,19 @@
                       <th class="px-n5">X</th>
                     </tr>
                     <tr v-for="(list, index) in ListOrder" :key="index">
-                      <td>{{ list.name }}</td>
+                      <td>
+                        {{
+                          list.name.length <= 3
+                            ? list.name
+                            : list.name?.slice(0, 5) + '...'
+                        }}
+                      </td>
                       <td>{{ list.sale_price }}ກີບ</td>
                       <td>
                         <div class="d-flex align-center justify-center">
                           <v-btn
                             icon
-                            class="cyan accent-3 rounded-0"
+                            class="cyan accent-4 white--text rounded-0"
                             style="height: 40px; width: 20px"
                             @click="minus(list.id)"
                           >
@@ -385,7 +398,7 @@
 
                           <v-btn
                             icon
-                            class="cyan accent-3 rounded-0"
+                            class="cyan accent-4 white--text rounded-0"
                             style="height: 40px; width: 20px"
                             @click="AddOne(list.id)"
                           >
@@ -554,8 +567,10 @@ export default {
             this.sale_detail_data.Exch_id = this.exchange_id
             this.sale_detail_data.Totalkip = item.sale_price
             this.sale_detail_data.Sale_qty = item.order_amount
-            return this.$axios
-              .post('http://localhost:2023/sale_detail', this.sale_detail_data)
+            return this.$axios.post(
+              'http://localhost:2023/sale_detail',
+              this.sale_detail_data
+            )
           })
           // _____________subtract product quantity___________
 
@@ -570,6 +585,15 @@ export default {
             )
           })
 
+
+
+          this.$router.push('/sale/' + this.sale_detail_data.Sale_id)
+          this.$toast.success('ສຳເລັດການຂາຍ')
+          this.$store.dispatch('product/getProductData')
+          this.loading = false
+          this.ListOrder = []
+          this.CashAmount = 0
+          this.dialog = false
           this.sale_data.Em_id = null
           this.sale_data.Cus_id = null
           this.sale_data.Sale_date = null
@@ -577,14 +601,6 @@ export default {
           this.sale_data.Totalbath = null
           this.sale_data.Totaldollar = null
           this.exchange_id = null
-
-          // this.$router.push('/sale/' + this.sale_id)
-          // this.$toast.success('sale completed')
-          // this.$store.dispatch('product/selectAll')
-          this.loading = false
-          this.ListOrder = []
-          this.CashAmount = 0
-          this.dialog = false
         })
         .catch((error) => {
           this.$toast.error(error)

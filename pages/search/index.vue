@@ -14,7 +14,7 @@
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      <v-tab-item key="product">
+      <v-tab-item key="ສິນຄ້າ">
         <v-card flat>
           <v-card-text>
             <Product-component />
@@ -22,7 +22,7 @@
         </v-card>
       </v-tab-item>
 
-      <v-tab-item key="customer">
+      <v-tab-item key="ລູກຄ້າ">
         <v-card flat>
           <v-card-text>
             <Customer />
@@ -30,7 +30,7 @@
         </v-card>
       </v-tab-item>
 
-      <v-tab-item key="employee">
+      <v-tab-item key="ພະນັກງານ">
         <v-card flat>
           <v-card-text>
             <Employee />
@@ -46,9 +46,9 @@ export default {
     return {
       tab: null,
       items: [
-        { tab: 'Product', content: 'Product Tab' },
-        { tab: 'Customer', content: 'Customer Tab' },
-        { tab: 'Employee', content: 'Employee Tab' }
+        { tab: 'ສິນຄ້າ', content: 'Product Tab' },
+        { tab: 'ລູກຄ້າ', content: 'Customer Tab' },
+        { tab: 'ພະນັກງານ', content: 'Employee Tab' }
       ]
     };
   }
